@@ -1,0 +1,96 @@
+/* principal.css */
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  padding: 24px;
+  margin: 0;
+  color: #555;
+}
+
+.container {
+  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 180px;
+  margin-right: 50px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[list] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button {
+  background-color: #004a5e;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 45px;
+}
+
+button:hover {
+  background-color: #00677f;
+}
+
+.resultado {
+  margin-top: 40px;
+}
+
+.resultado h2 {
+  font-size: 1.5em;
+  margin-bottom: 16px;
+}
+
+#resultado {
+  background-color: #f1f3f5;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+#btnAlternar {
+  margin-right: 25px;
+}
