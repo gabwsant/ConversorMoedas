@@ -21,7 +21,7 @@ function alternarMoedas() {
 }
 
 function formatarParaMoeda(e) {
-  let valorInput = valor.value;
+  let valorInput = e.target.value;
 
   valorInput = valorInput.replace(/\D/g, ""); //esse regex remove tudo que não é dígito
 
@@ -57,45 +57,43 @@ function converter() {
   }
 
   // Chamada à API para obter a taxa de câmbio
-  fetchTaxaCambio(moeda1, moeda2, valorNumerico);
+  let taxaCambio = fetchTaxaCambio(moeda1, moeda2);
+  taxaCambio.then((taxa) => {
+    if (taxa) {
+      const valorConvertido = valorNumerico * taxa;
+      const resultado = document.getElementById("resultado");
+      resultado.innerHTML = `Valor convertido: ${valorConvertido.toLocaleString(
+        "pt-BR",
+        {
+          style: "currency",
+          currency: moeda2,
+        }
+      )}`;
+    }
+  });
 }
 
-async function fetchTaxaCambio(moeda1, moeda2, valor) {
-  const url = `https://api.fastforex.io/fetch-one?api_key=fe7a80e78b-5218041e35-sxi97q/${moeda1}`;
+async function fetchTaxaCambio(moeda1, moeda2) {
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Erro ao buscar a taxa de câmbio.");
-    }
+  const url = `https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_qldV2B1dsfFjvcMXjGttVTIU6O7cMFVB4ArNY13x&currencies=${moeda2}&base_currency=${moeda1}`;
 
-    const data = await response.json();
-    const taxaCambio = data.rates[moeda2];
+  const response = await fetch(url, requestOptions);
 
-    if (!taxaCambio) {
-      throw new Error(`Taxa de câmbio não encontrada para ${moeda2}.`);
-    }
-
-    const valorConvertido = valor * taxaCambio;
-    alert(`Valor convertido: ${valorConvertido.toFixed(2)} ${moeda2}`);
-  } catch (error) {
-    console.error("Erro:", error);
-    alert("Ocorreu um erro ao converter o valor. Tente novamente.");
+  if (!response.ok) {
+    alert("Erro ao buscar a taxa de câmbio. Tente novamente mais tarde.");
+    return;
   }
+  const data = await response.json();
+  const taxaCambio = data.data[moeda2];
+
+  if (!taxaCambio) {
+    alert("Taxa de câmbio não encontrada. Verifique as moedas selecionadas.");
+    return;
+  }
+
+  return taxaCambio;
 }
-
-let url =
-  "https://api.fastforex.io/fetch-all?api_key=fe7a80e78b-5218041e35-sxi97q" +
-  "&from=USD&to=EUR,BRL,JPY,GBP,AUD,CAD,CHF,CNY,RUB,INR";
-
-let options = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-  },
-};
-
-const response = await fetch(url, options)
-  .then((res) => res.json())
-  .then((res) => console.log(res))
-  .catch((err) => console.error("Error:", err));
