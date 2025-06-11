@@ -53,11 +53,6 @@ input[list] {
   font-size: 1em;
 }
 
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 button {
   background-color: #004a5e;
   color: white;

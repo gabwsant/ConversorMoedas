@@ -68,7 +68,7 @@ function converter() {
           style: "currency",
           currency: moeda2,
         }
-      )}`;
+      )}<br>Taxa de câmbio: ${taxa}`;
     }
   });
 }
